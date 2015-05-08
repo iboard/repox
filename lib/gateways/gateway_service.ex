@@ -24,6 +24,7 @@ defmodule GatewayService do
 
   @doc """
   Get the current gateway from the service
+
   #### Example:
       iex> gw = %ListGateway{}
       ...> {:ok, service} = GatewayService.start_service( gw )
@@ -36,6 +37,7 @@ defmodule GatewayService do
 
   @doc """
   Put a new entry to the gateway
+
   #### Example:
       iex> gw = %ListGateway{}
       ...> {:ok, service} = GatewayService.start_service( gw )
@@ -49,6 +51,7 @@ defmodule GatewayService do
 
   @doc """
   Filter by function
+
   #### Example:
       iex> gw = %ListGateway{ entries: [:a, :b, :c] }
       ...> {:ok, service} = GatewayService.start_service( gw )

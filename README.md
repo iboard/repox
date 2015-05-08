@@ -6,6 +6,11 @@ repository pattern with Elixir.
 
 Please stay tuned for further (massive) changes.
 
+# Documentation
+
+Run `mix docs` will generate documentation in `doc`
+Then open `doc/index.html`
+
 
 # License
 

@@ -11,26 +11,29 @@ defprotocol Gateway do
 
   @doc """
   Return all entries as a List.
-    #### Example:
-        iex> gw = %ListGateway{ entries: [ :hello, :world ] }
-        ...> Gateway.to_list(gw)
-        [:hello, :world]
+
+  #### Example:
+      iex> gw = %ListGateway{ entries: [ :hello, :world ] }
+      ...> Gateway.to_list(gw)
+      [:hello, :world]
   """
   def to_list gw_impl
 
   @doc """
   Store a new entry
-    #### Example:
-        iex> gw = %ListGateway{ entries: [ :first, :second ] }
-        ...> gw_modified = Gateway.put(gw, :third)
-        ...> Gateway.to_list(gw_modified)
-        [:third, :first, :second]
+
+  #### Example:
+      iex> gw = %ListGateway{ entries: [ :first, :second ] }
+      ...> gw_modified = Gateway.put(gw, :third)
+      ...> Gateway.to_list(gw_modified)
+      [:third, :first, :second]
   """
   def put     gw_impl, entry
 
   @doc """
   Filter entries by _f_.
   Where _f_ should return true if entry should be in the resulting List.
+
   #### Example:
       iex> gw = %ListGateway{ entries: [ 1, 2, 3 ] }
       ...> Gateway.filter(gw, &(&1 > 2))
