@@ -12,7 +12,7 @@ end
 defimpl Gateway, for: ListGateway do
 
   def to_list gw_impl do
-    Enum.to_list gw_impl.entries
+    gw_impl.entries
   end
 
   def put gw_impl, entry do
