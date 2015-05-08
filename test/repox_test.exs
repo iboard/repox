@@ -1,5 +1,5 @@
 defmodule RepoxTest do
-  use ExUnit.Case
+  use ExUnit.Case, async: true
 
   # THIS IS A DRAFT ONLY
 

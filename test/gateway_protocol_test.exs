@@ -1,5 +1,5 @@
 defmodule GatewayTest do
-  use ExUnit.Case
+  use ExUnit.Case, async: true
   doctest Gateway
 
   setup do
