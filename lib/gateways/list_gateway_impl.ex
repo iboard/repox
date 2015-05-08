@@ -1,8 +1,16 @@
 defmodule ListGateway do
+  @moduledoc """
+  In memory implementation of the [Gateway](Gateway.html)-protocol.
+
+  ListGateway uses a simple List to hold it's entries. Where an entry
+  can be of any datatype you want.
+
+  """
   defstruct entries: []
 end
 
 defimpl Gateway, for: ListGateway do
+
   def to_list gw_impl do
     Enum.to_list gw_impl.entries
   end

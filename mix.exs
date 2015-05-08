@@ -7,6 +7,7 @@ defmodule Repox.Mixfile do
      elixir: "~> 1.0",
      build_embedded: Mix.env == :prod,
      start_permanent: Mix.env == :prod,
+     docs: [readme: "README.md", main: "README"],
      deps: deps]
   end
 
@@ -27,6 +28,10 @@ defmodule Repox.Mixfile do
   #
   # Type `mix help deps` for more examples and options
   defp deps do
-    []
+    [
+      {:earmark, "~> 0.1", only: :dev},
+      {:ex_doc, "~> 0.7", only: :dev}
+    ]
   end
+
 end

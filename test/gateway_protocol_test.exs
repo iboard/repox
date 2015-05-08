@@ -1,9 +1,10 @@
 defmodule GatewayTest do
   use ExUnit.Case
+  doctest Gateway
 
   setup do
-    all = [ 
-      %{id: 1, value: "one"}, 
+    all = [
+      %{id: 1, value: "one"},
       %{id: 2, value: "two"},
       %{id: 3, value: "three"} ]
     empty  = [ %ListGateway{} ]
