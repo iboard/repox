@@ -7,6 +7,14 @@ defprotocol Gateway do
     a given device, file, or just the memory.
 
     Implementations may be ListGateway (InMemory), FileGateway, SQLGateway, ...
+
+    **ATTENTION**
+
+  > You should not use a Gateway directely. Instead use the
+  > [GatewayService](GatewayService.html)
+  > (The service provides the same function as the Gateway-protocol
+  > and delegates them to the used Gateway-Implementation. Where
+  > different Gateway-Implementations know how to persist entries.
   """
 
   @doc """

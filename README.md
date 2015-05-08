@@ -6,13 +6,22 @@ repository pattern with Elixir.
 
 Please stay tuned for further (massive) changes.
 
-# Documentation
+## Installation
+
+    git clone https://github.com/iboard/repox.git
+    cd repox
+    mix deps.get
+    mix test --trace
+    mix docs
+    open doc/index.html # on OS
+
+##Documentation
 
 Run `mix docs` will generate documentation in `doc`
 Then open `doc/index.html`
 
 
-# License
+## License
 
 Copyright (C) 2015 Andreas Altendorfer, <andreas@altendorfer.at>
 
