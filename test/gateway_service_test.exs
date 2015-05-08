@@ -18,4 +18,9 @@ defmodule GatewayServiceTest do
     assert context[:entries] == Gateway.to_list(gw)
   end
 
+  test "add an entry to the gateway, using the service, and retreive it", context do
+    GatewayService.put(context[:service], "four")
+    assert ["four"] == GatewayService.where( context[:service], &( &1 == "four" ) )
+  end
+
 end
