@@ -20,6 +20,61 @@ Please stay tuned for further (massive) changes.
 Run `mix docs` will generate documentation in `doc`
 Then open `doc/index.html`
 
+## Concept
+
+    +-----------------+                  +----------------+
+    | GatewayProtocol | <--------------- | GatewayService |
+    +-----------------+                  +----------------+
+            ^
+            |
+            |---------------+--------------+
+    +-------------+   +-------------+   +------+
+    | ListGateway |   | FileGateway |   | .... |
+    +-------------+   +-------------+   +------+
+
+The _GatewayProtocol_ defines all functions needed for a persistence gateway.
+_ListGateway_, _FileGateway_, and others (eg SQLGateway, MongoDBGateway,...)
+must implement the functions defined in the _GatewayProtocol_.
+
+The _GatewayService_ is an OTP _GenServer_ and implements mostly the same
+functions as defined in the _GatewayProtocol_. It gets initialized with a
+concrete _GatewayImplementation_ (_ListGateway_, ...).
+
+The user of the _GatewayService_ then calls functions on the service doesn't
+have to know how the _GatewayImplementation_ handles the persistence layer.
+
+### Example:
+
+    in_memory_store = %ListGateway{}
+    file_store      = %FileGateway{path: "/path/to/file"}
+
+    entry           = "Some data of any kind"
+
+    {:ok, in_memory_service} = GatewayService.start_service(in_memory_store)
+    {:ok, file_service}      = GatewayService.start_service(file_store)
+
+    # Now save the entry to both services
+    GatewayService.put(in_memory_service, entry)
+    GatewayService.put(file_service, entry)
+
+    # And get it back from the gateway
+    enttries = GatewayService.where(in_memory_service, &( &1 != nil ))
+    # or
+    entries  = GatewayService.where(file_service, &( &1 != nil ))
+
+As you can see there is no difference in using the service with either a
+_ListGateway_ or _FileGateway_, or any other implementation.
+
+"&(&1 != nil)" if you new to Elixir this definition will confuse you a bit.
+`&()` defines an anonymous function and `&1` in `&1 != nil` means the first
+parameter passed to the function.
+This anonymous function gets passed through to the gateway's filter function.
+The gateway implementation iterates all entries and will filter all of them
+where the entry (`&1`) fulfills the condition ` != nil`.
+
+Assuming our `entry` is a structure like `%{ id: 12, value: "something" }` you
+can pass a filter like `&1( &1.id == 12 )`
+
 
 ## License
 
