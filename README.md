@@ -24,6 +24,9 @@ Please stay tuned for further (massive) changes.
 Run `mix docs` will generate documentation in `doc`
 Then open `doc/index.html`
 
+You may find an online-version of docs on
+[static.iboard.cc](http://static.iboard.cc/repox/index.html)
+
 ## Concept
 
     +-----------------+                  +----------------+
