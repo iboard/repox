@@ -25,6 +25,7 @@ defprotocol Gateway do
       ...> Gateway.to_list(gw)
       [:hello, :world]
   """
+  @spec to_list(Gateway.t) :: List.t
   def to_list gw_impl
 
   @doc """
@@ -36,6 +37,7 @@ defprotocol Gateway do
       ...> Gateway.to_list(gw_modified)
       [:third, :first, :second]
   """
+  @spec put(Gateway.t, any) :: Gateway
   def put     gw_impl, entry
 
   @doc """
@@ -47,7 +49,7 @@ defprotocol Gateway do
       ...> Gateway.filter(gw, &(&1 > 2))
       [3]
   """
-  @spec filter(Struct.t, fun) :: List.t
+  @spec filter(Gateway.t, fun) :: List.t
   def filter  gw_impl, f
 end
 

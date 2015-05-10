@@ -1,0 +1,53 @@
+defmodule FileGateway do
+  @moduledoc """
+  In memory implementation of the [Gateway](Gateway.html)-protocol.
+
+  FileGateway uses 'Poison' to en/decode data to/from JSON and stores
+  JSON-strings in :path
+
+  #### Usage:
+
+      gw = %FileGateway{path: "/to/your/file"}
+  """
+  defstruct path: "/tmp/repox_test_gateway.json"
+end
+
+defimpl Gateway, for: FileGateway do
+
+  @default_content "[]"
+
+  def to_list gw_impl do
+    read(gw_impl.path, @default_content)
+  end
+
+  def put gw_impl, entry do
+    list = read(gw_impl.path, @default_content)
+    write(gw_impl.path, [entry|list])
+    %FileGateway{ path: gw_impl.path }
+  end
+
+  def filter gw_impl, f do
+    read(gw_impl.path, "[]")
+      |> Enum.filter f
+  end
+
+
+  # FILE & JSON Handling
+  defp write path, entries do
+    Poison.Encoder.encode(entries, [])
+      |> write_file(path)
+  end
+
+  defp write_file data, path do
+    File.write!(path, data, [])
+  end
+
+  defp read path, _default do
+    File.read!(path)
+      |> Poison.Parser.parse!(keys: :atoms!)
+  end
+
+end
+
+
+

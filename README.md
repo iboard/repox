@@ -6,6 +6,10 @@ repository pattern with Elixir.
 
 Please stay tuned for further (massive) changes.
 
+## Github
+
+  * [On Github](https://github.com/iboard/repox)
+
 ## Installation
 
     git clone https://github.com/iboard/repox.git
@@ -15,7 +19,7 @@ Please stay tuned for further (massive) changes.
     mix docs
     open doc/index.html # on OS
 
-##Documentation
+## Documentation
 
 Run `mix docs` will generate documentation in `doc`
 Then open `doc/index.html`
@@ -75,6 +79,11 @@ where the entry (`&1`) fulfills the condition ` != nil`.
 Assuming our `entry` is a structure like `%{ id: 12, value: "something" }` you
 can pass a filter like `&1( &1.id == 12 )`
 
+## Benchmarks
+
+To run benchmarks do
+
+    mix bench
 
 ## License
 

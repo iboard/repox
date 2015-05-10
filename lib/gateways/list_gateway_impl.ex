@@ -5,6 +5,11 @@ defmodule ListGateway do
   ListGateway uses a simple List to hold it's entries. Where an entry
   can be of any datatype you want.
 
+  #### Usage:
+
+      gw = %ListGateway{}                  # empty
+      gw = %ListGateway{entries: [1,2,3]}  # with default values
+
   """
   defstruct entries: []
 end

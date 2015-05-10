@@ -8,6 +8,7 @@ defmodule Repox.Mixfile do
      build_embedded: Mix.env == :prod,
      start_permanent: Mix.env == :prod,
      docs: [readme: "README.md", main: "README"],
+     package: package,
      deps: deps]
   end
 
@@ -30,8 +31,17 @@ defmodule Repox.Mixfile do
   defp deps do
     [
       {:earmark, "~> 0.1", only: :dev},
-      {:ex_doc, "~> 0.7", only: :dev}
+      {:ex_doc, "~> 0.7", only: :dev},
+      {:benchfella, "~> 0.2", only: :dev},
+      {:poison, git: "git@github.com:devinus/poison.git", tag: "1.4.0" }
     ]
+  end
+
+  defp package do
+    [files: ~w(lib mix.exs README.md CHANGELOG.md),
+     contributors: ["Andreas Altendorfer"],
+     licenses: ["MIT"],
+     links: %{"GitHub" => "https://github.com/iboard/repox"}]
   end
 
 end
