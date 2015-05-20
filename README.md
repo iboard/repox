@@ -18,6 +18,32 @@ Please stay tuned for further (massive) changes.
     mix deps.get
     mix test --trace
 
+## Configuration
+
+There should be an environment file for each defined environment
+(MIX_ENV, :test, :dev, :production.
+
+Application specific configuration is done in section :repox
+
+> (By now, only the Mongo db-connection is defined here)
+
+### example config/dev.ex
+
+    use Mix.Config
+
+    config :repox,
+      mongo_db_name: "dev",
+      mongo_collection: "dev_collection"
+
+All keys in this config definition are accessible through
+`Repox.config(:key)` where valid keys are:
+
+| Key name          | possible values & meaning              | example       |
+|-------------------|----------------------------------------|---------------|
+| :mongo_db_name    | any string valid as a mongo db-name    | 'addressbook' |
+| :mongo_collection | any string valid as a mongo collection | 'people'      |
+
+
 ## Documentation
 
 Run `mix docs` will generate documentation in `doc`
@@ -29,7 +55,7 @@ You may find an online-version of docs on
 ## Concept
 
     +-----------------+                  +----------------+
-    | GatewayProtocol | <--------------- | GatewayService |
+    | GatewayProtocol | <--------------- | GatewayService |<<<<-API->>
     +-----------------+                  +----------------+
             ^
             |
@@ -86,6 +112,19 @@ can pass a filter like `&1( &1.id == 12 )`
 To run benchmarks do
 
     mix bench
+
+    ## BenchmarksBench
+    [21:07:46] 0/3: 100x put to a Mongo collection
+    [21:07:58] 0/3: 100x put to a Memory List
+    [21:07:59] 0/3: 100x put to a File List
+
+    Finished in 16.89 seconds
+
+    ## BenchmarksBench
+    100x put to a Memory List             1000   1498.35 µs/op
+    100x put to a Mongo collection         500   22170.77 µs/op
+    100x put to a File List                  1   3204996.00 µs/op
+
 
 ## License
 
