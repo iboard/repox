@@ -32,6 +32,15 @@ defimpl Gateway, for: FileGateway do
   end
 
 
+  def count gw_impl do
+    to_list(gw_impl) |> Enum.count
+  end
+
+  def drop gw_impl do
+    write gw_impl.path, []
+    self
+  end
+
   # FILE & JSON Handling
   defp write path, entries do
     Poison.Encoder.encode(entries, [])
@@ -43,8 +52,10 @@ defimpl Gateway, for: FileGateway do
   end
 
   defp read path, _default do
-    File.read!(path)
-      |> Poison.Parser.parse!(keys: :atoms!)
+    case File.read(path) do
+      {:ok, body} -> body
+      {:error, error} -> "[]"
+    end |> Poison.Parser.parse!(keys: :atoms!)
   end
 
 end

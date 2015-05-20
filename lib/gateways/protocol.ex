@@ -6,15 +6,16 @@ defprotocol Gateway do
     kind of 'Entries'. It knows how to store and read those entries from
     a given device, file, or just the memory.
 
-    Implementations may be ListGateway (InMemory), FileGateway, SQLGateway, ...
+    Implementations may be ListGateway (InMemory), FileGateway,
+    and more to come MongoDBGateway,  SQLGateway, and others.
 
     **ATTENTION**
 
-  > You should not use a Gateway directely. Instead use the
-  > [GatewayService](GatewayService.html)
-  > (The service provides the same function as the Gateway-protocol
-  > and delegates them to the used Gateway-Implementation. Where
-  > different Gateway-Implementations know how to persist entries.
+  >  You shall not use a Gateway directely. Instead use the
+  >  [GatewayService](GatewayService.html)
+  >  (The service provides the same function as the Gateway-protocol
+  >  and delegates them to the used Gateway-Implementation. Where
+  >  different Gateway-Implementations know how to persist entries.
   """
 
   @doc """
@@ -51,6 +52,19 @@ defprotocol Gateway do
   """
   @spec filter(Gateway.t, fun) :: List.t
   def filter  gw_impl, f
+
+  @doc """
+  Count entries in repository/gateway
+  """
+  @spec count(Gateway.t) :: Integer
+  def count gw_impl
+
+  @doc """
+  Drop repository
+  """
+  @spec drop(Gateway.t) :: Gateway.t
+  def drop gw_impl
+
 end
 
 

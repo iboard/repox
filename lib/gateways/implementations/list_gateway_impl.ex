@@ -27,6 +27,15 @@ defimpl Gateway, for: ListGateway do
   def filter gw_impl, f do
     Enum.filter gw_impl.entries, f
   end
+
+  def count gw_impl do
+    Enum.count(gw_impl.entries)
+  end
+
+  def drop gw_impl do
+    %ListGateway{}
+  end
+
 end
 
 
