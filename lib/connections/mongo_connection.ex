@@ -1,6 +1,6 @@
 defmodule MongoConnection do
   @moduledoc """
-  ## Start and access the global Mongo Connection
+  Start and access the global Mongo Connection
 
   Set up see [Repox.config](Repox.html)
   """

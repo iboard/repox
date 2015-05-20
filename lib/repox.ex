@@ -1,8 +1,11 @@
-require Logger
 defmodule Repox do
+  require Logger
+
   @moduledoc """
-  This is a project under heavy development.
-  for now, please read [README](README.html)
+  Repox Main Module
+
+  The aim of this 'main-module' is to provide a convenient way to
+  configure the application. See [README#configuration](README.html#Configuration).
   """
 
   use Mix.Config
@@ -25,6 +28,7 @@ defmodule Repox do
 
   @doc """
   Retreive settings from config-agent. See start_agents/0.
+
   Configurations read from config-files (Application.get_env...)
   see files `config/_ENV_.exs`
       mongo: _mongo_connection_,

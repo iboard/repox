@@ -1,6 +1,6 @@
 defmodule MongoDBGateway do
   @moduledoc """
-   MongoDB implementation of the [Gateway](Gateway.html)-protocol.
+  MongoDB implementation of the [Gateway](Gateway.html)-protocol.
 
   #### Usage:
 

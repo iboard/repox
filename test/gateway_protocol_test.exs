@@ -8,20 +8,21 @@ defmodule GatewayTest do
   @filled_mongo_collection "test_filled"
 
   setup do
-    # return empty and filled gateways of both kinds
-    # Tests will use seed gateways in empty and filled,
-    # thus the same test ensures seed gateways behaves the same way
-    mongo  = Repox.config(:mongo)
-    db     = Repox.config(:db)
+    # return empty and filled gateways for each gateway implementation.
+    # Running the same test for each implementation ensures they behaves the same.
     seed = [
              %{id: 1, value: "one"},
              %{id: 2, value: "two"},
              %{id: 3, value: "three"}
            ]
 
+    # Setup files and collections
     compose_test_files seed
-    setup_mongo_db     seed
+    mongo  = Repox.config(:mongo)
+    db     = Repox.config(:db)
+    compose_mongo_collections seed
 
+    # Setup empty and filled gateways for all tests
     empty  = [ %ListGateway{},
                %FileGateway{path: @empty_testfile},
                %MongoDBGateway{mongo: mongo, collection: @empty_mongo_collection}]
@@ -30,6 +31,7 @@ defmodule GatewayTest do
                %FileGateway{path: @filled_testfile},
                %MongoDBGateway{mongo: mongo, collection: @filled_mongo_collection}]
 
+    # Teardown and empty Gateways
     on_exit fn ->
       Enum.each(empty, fn(gw) ->
         Gateway.drop(gw)
@@ -37,6 +39,8 @@ defmodule GatewayTest do
     end
     {:ok, empty: empty, filled: filled, seed: seed}
   end
+
+  # TESTS
 
   test "Gateway.to_list(gw) returns all entries as a list", context do
     Enum.each context[:empty], fn(gw) ->
@@ -58,6 +62,8 @@ defmodule GatewayTest do
     end
   end
 
+  # Private API
+
   defp compose_test_files seed do
     empty_json  = Poison.Encoder.encode([], [])
     filled_json = Poison.Encoder.encode(seed, [])
@@ -65,7 +71,7 @@ defmodule GatewayTest do
     File.write!(@empty_testfile, empty_json)
   end
 
-  defp setup_mongo_db seed do
+  defp compose_mongo_collections seed do
     db                = Repox.config(:db)
     empty_collection  = MongoConnection.collection(db,@empty_mongo_collection)
     filled_collection = MongoConnection.collection(db,@filled_mongo_collection)

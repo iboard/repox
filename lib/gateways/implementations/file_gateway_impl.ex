@@ -9,7 +9,7 @@ defmodule FileGateway do
 
       gw = %FileGateway{path: "/to/your/file"}
   """
-  defstruct path: "/tmp/repox_test_gateway.json"
+  defstruct path: Application.get_env(:repox, :file_gw_path)
 end
 
 defimpl Gateway, for: FileGateway do
