@@ -54,7 +54,7 @@ defimpl Gateway, for: FileGateway do
   defp read path, _default do
     case File.read(path) do
       {:ok, body} -> body
-      {:error, error} -> "[]"
+      {:error, _error} -> "[]"
     end |> Poison.Parser.parse!(keys: :atoms!)
   end
 

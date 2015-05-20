@@ -14,10 +14,9 @@ Please stay tuned for further (massive) changes.
 
     git clone https://github.com/iboard/repox.git
     cd repox
+    cp config/dev.sample_exs config/dev.exs
     mix deps.get
     mix test --trace
-    mix docs
-    open doc/index.html # on OS
 
 ## Documentation
 

@@ -6,3 +6,6 @@ erl_crash.dump
 *.ez
 \[\]
 .vimrc
+config/dev.exs
+config/production.exs
+bench/graphs

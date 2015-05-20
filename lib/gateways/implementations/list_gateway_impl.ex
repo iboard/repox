@@ -32,7 +32,7 @@ defimpl Gateway, for: ListGateway do
     Enum.count(gw_impl.entries)
   end
 
-  def drop gw_impl do
+  def drop _gw_impl do
     %ListGateway{}
   end
 
