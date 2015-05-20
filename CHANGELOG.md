@@ -1,5 +1,9 @@
 # repox Changelog
 
+# 2015-05-20
+
+  - Reviewed Benchmarks
+
 # 2015-05-10
 
   - Implemented Benchmark tests

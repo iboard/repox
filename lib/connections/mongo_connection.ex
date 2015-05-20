@@ -1,7 +1,8 @@
 defmodule MongoConnection do
   @moduledoc """
-  ##
-  Start and access the global Mongo Connection -set up by Repox.config-
+  ## Start and access the global Mongo Connection
+
+  Set up see [Repox.config](Repox.html)
   """
 
   @doc "Get global mongo connection"
@@ -15,10 +16,12 @@ defmodule MongoConnection do
     Mongo.Collection.insert!(data, collection)
   end
 
+  @doc "Return the named collection in db"
   def collection db, coll_name do
     Mongo.Db.collection(db, coll_name)
   end
 
+  @doc "Drop the given collection from db"
   def drop collection do
     case Mongo.Collection.drop(collection) do
       _ -> nil # ignore non existing collections

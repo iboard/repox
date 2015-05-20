@@ -14,10 +14,35 @@ Please stay tuned for further (massive) changes.
 
     git clone https://github.com/iboard/repox.git
     cd repox
+    cp config/dev.sample_exs config/dev.exs
     mix deps.get
     mix test --trace
-    mix docs
-    open doc/index.html # on OS
+
+## Configuration
+
+There should be an environment file for each defined environment
+(MIX_ENV, :test, :dev, :production.
+
+Application specific configuration is done in section :repox
+
+> (By now, only the Mongo db-connection is defined here)
+
+### example config/dev.ex
+
+    use Mix.Config
+
+    config :repox,
+      mongo_db_name: "dev",
+      mongo_collection: "dev_collection"
+
+All keys in this config definition are accessible through
+`Repox.config(:key)` where valid keys are:
+
+| Key name          | possible values & meaning              | example       |
+|-------------------|----------------------------------------|---------------|
+| :mongo_db_name    | any string valid as a mongo db-name    | 'addressbook' |
+| :mongo_collection | any string valid as a mongo collection | 'people'      |
+
 
 ## Documentation
 
@@ -30,7 +55,7 @@ You may find an online-version of docs on
 ## Concept
 
     +-----------------+                  +----------------+
-    | GatewayProtocol | <--------------- | GatewayService |
+    | GatewayProtocol | <--------------- | GatewayService |<<<<-API->>
     +-----------------+                  +----------------+
             ^
             |
