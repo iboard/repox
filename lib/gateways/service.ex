@@ -62,7 +62,28 @@ defmodule GatewayService do
     GenServer.call service, {:filter, f}
   end
 
+  @doc "To List"
+  def to_list service do
+    where(service, fn(e) -> true end)
+  end
 
+  @doc """
+  Count entries in collection
+  """
+  def count service do
+    GenServer.call service, :count
+  end
+
+  @doc """
+  Drop the entire collection
+  """
+  def drop service do
+    GenServer.cast service, :drop
+  end
+
+  def find service, id do
+    GenServer.call service, {:find, id}
+  end
   # Callbacks
 
   def handle_call :gateway, _from, service do
@@ -74,9 +95,23 @@ defmodule GatewayService do
     {:reply, found, service}
   end
 
+  def handle_call :count, _from, service do
+    {:reply, Gateway.count(service[:gateway]), service}
+  end
+
   def handle_cast {:put, entry}, service do
     gw = Gateway.put(service[:gateway], entry)
     {:noreply, %{gateway: gw}}
+  end
+
+  def handle_cast :drop, service do
+    gw = Gateway.drop(service[:gateway])
+    {:noreply, %{gateway: gw}}
+  end
+
+  def handle_call {:find, id},_from, service do
+    entry = Gateway.find(service[:gateway], id)
+    {:reply, entry, service}
   end
 
 end

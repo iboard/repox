@@ -32,12 +32,10 @@ defimpl Gateway, for: MongoDBGateway do
   end
 
   def count gw_impl do
-    collection = gw_impl.mongo
+    gw_impl.mongo
       |> Mongo.db(gw_impl.db)
       |> Mongo.Db.collection(gw_impl.collection)
-    count = Mongo.Collection.count!(collection)
-    IO.puts "COUNT #{count} #{inspect gw_impl.collection}"
-    count
+      |> Mongo.Collection.count!
   end
 
   def drop gw_impl do
@@ -45,7 +43,14 @@ defimpl Gateway, for: MongoDBGateway do
       |> Mongo.db(gw_impl.db)
       |> Mongo.Db.collection(gw_impl.collection)
     MongoConnection.drop(collection)
-    self
+    gw_impl
+  end
+
+  def find gw_impl, id do
+    case filter(gw_impl, &(&1.id == id)) do
+      [found|_] -> found
+      []        -> :not_found
+    end
   end
 
 end

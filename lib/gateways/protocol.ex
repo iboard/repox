@@ -65,6 +65,10 @@ defprotocol Gateway do
   @spec drop(Gateway.t) :: Gateway.t
   def drop gw_impl
 
+  @doc "Find an entry by id"
+  @spec find(Gateway.t, any) :: any
+  def find gw_impl, id
+
 end
 
 

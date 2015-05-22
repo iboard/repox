@@ -1,5 +1,4 @@
 defmodule Repox do
-  require Logger
 
   @moduledoc """
   Repox Main Module

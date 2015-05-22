@@ -27,6 +27,11 @@ defmodule MongoConnection do
       _ -> nil # ignore non existing collections
     end
   end
+
+  @doc "Inspect the Status of the connection"
+  def status do
+    "MONGO DB CONNECTION: " <> inspect(Repox.config(:mongo))
+  end
 end
 
 
