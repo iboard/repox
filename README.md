@@ -125,6 +125,13 @@ To run benchmarks do
     100x put to a Mongo collection         500   22170.77 µs/op
     100x put to a File List                  1   3204996.00 µs/op
 
+## Linked Projects
+
+  * [repox] This open source repository, implementing a
+    Repository-pattern for Elixir. Supporting InMemory, File, MongoDB
+    Gateways.
+  * [elixir_iboard] Defines a "Boards Repository", using Repox.
+  * [iboard_phoenix] Phoenix Web-project using [elixir_iboard]
 
 ## License
 
@@ -148,4 +155,5 @@ DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT,
 TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE
 OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
-
+[iboard_phoenix]: https://bitbucket.org/n0ckenfell/iboard_phoenix/overview
+[elixir_iboard]:  https://bitbucket.org/n0ckenfell/elixir_iboard
