@@ -36,7 +36,7 @@ defmodule Repox.Mixfile do
       {:earmark, "~> 0.1", only: :dev},
       {:ex_doc, "~> 0.7", only: :dev},
       {:benchfella, "~> 0.2", only: :dev},
-      {:poison, git: "git@github.com:devinus/poison.git", tag: "1.4.0" },
+      {:poison, "~> 1.4.0" },
       {:mongo, git: "git@github.com:checkiz/elixir-mongo.git", tag: "0.5.1"}
     ]
   end

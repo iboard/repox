@@ -37,21 +37,16 @@ defmodule Repox do
     Agent.get(:config, fn(cfg) -> cfg[key] end)
   end
 
-  @doc "Get the entire configuration set"
-  def config do
-    Agent.get(:config, fn(cfg) -> cfg end)
-  end
-
   # private API
 
   defp start_agents do
     {:ok, mongo, db} = Mongo.connect! |> select_db
     {:ok, agent}     = Agent.start_link fn ->
-                        [
-                          mongo: mongo,
-                          db:    db
-                        ] end,
-                       name: :config
+                         [
+                           mongo: mongo,
+                           db:    db
+                         ] end,
+                         name: :config
     {:ok, agent}
   end
 
