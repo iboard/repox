@@ -64,7 +64,7 @@ defmodule GatewayService do
 
   @doc "To List"
   def to_list service do
-    where(service, fn(e) -> true end)
+    where(service, fn(_) -> true end)
   end
 
   @doc """
@@ -82,8 +82,9 @@ defmodule GatewayService do
   end
 
   def find service, id do
-    GenServer.call service, {:find, id}
+    GenServer.cast service, {:find, id}
   end
+
   # Callbacks
 
   def handle_call :gateway, _from, service do
@@ -93,6 +94,11 @@ defmodule GatewayService do
   def handle_call {:filter, f}, _from, service do
     found = Gateway.filter( service[:gateway], f )
     {:reply, found, service}
+  end
+
+  def handle_call {:find, id},_from, service do
+    entry = Gateway.find(service[:gateway], id)
+    {:reply, entry, service}
   end
 
   def handle_call :count, _from, service do
@@ -107,11 +113,6 @@ defmodule GatewayService do
   def handle_cast :drop, service do
     gw = Gateway.drop(service[:gateway])
     {:noreply, %{gateway: gw}}
-  end
-
-  def handle_call {:find, id},_from, service do
-    entry = Gateway.find(service[:gateway], id)
-    {:reply, entry, service}
   end
 
 end

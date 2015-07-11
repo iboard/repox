@@ -36,6 +36,10 @@ defimpl Gateway, for: ListGateway do
     %ListGateway{}
   end
 
+  def find gw_impl, id do
+    Enum.find(gw_impl.entries, fn(e) -> e.id == id end)
+  end
+
 end
 
 

@@ -31,6 +31,12 @@ defimpl Gateway, for: FileGateway do
       |> Enum.filter f
   end
 
+  # SMELL: find expects the entity to have a field named id.
+  # rename to find_by_id or find_by( value, prime_key \\ :id )
+  def find gw_impl, id do
+    [first] = filter(gw_impl, fn(e) -> e.id == id end)
+    first
+  end
 
   def count gw_impl do
     to_list(gw_impl) |> Enum.count
@@ -38,10 +44,10 @@ defimpl Gateway, for: FileGateway do
 
   def drop gw_impl do
     write gw_impl.path, []
-    self
   end
 
   # FILE & JSON Handling
+
   defp write path, entries do
     Poison.Encoder.encode(entries, [])
       |> write_file(path)

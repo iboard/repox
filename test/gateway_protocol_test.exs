@@ -62,6 +62,13 @@ defmodule GatewayTest do
     end
   end
 
+  test "Gateway.find(gw,id)", context do
+    [expected] = Enum.take(context[:seed], 1)
+    Enum.each context[:filled], fn(gw) ->
+      assert expected == Gateway.find(gw, 1)
+    end
+  end
+
   # Private API
 
   defp compose_test_files seed do
