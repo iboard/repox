@@ -6,7 +6,7 @@ defmodule Repox.Entity.MacroTest do
     defstruct key: nil, value: ""
   end
 
-  test "%MyStruct{} to %{}" do
+  test "setting defaults for %MyStruct{}" do
     my_struct = %MyStruct{}
     assert MyStruct.as_struct(my_struct) == %{key: nil, value: ""}
   end
